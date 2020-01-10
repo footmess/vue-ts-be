@@ -1,0 +1,39 @@
+{
+	"name": "vue-ts-be",
+	"version": "1.0.0",
+	"description": "基于node express mongodb的后端开发",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "nodemon app.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/footmess/vue-ts-be.git"
+	},
+	"dependencies": {
+		"babel-preset-env": "^1.7.0",
+		"babel-register": "^6.26.0",
+		"consola": "^1.4.4",
+		"cookie-parser": "~1.4.3",
+		"crypto": "^1.0.1",
+		"debug": "~2.6.9",
+		"ejs": "~2.5.7",
+		"express": "~4.16.0",
+		"express-session": "^1.15.6",
+		"http-errors": "~1.6.2",
+		"mongodb": "^3.1.8",
+		"mongoose": "^5.3.7",
+		"mongoose-auto-increment": "^5.0.1",
+		"morgan": "~1.9.0",
+		"node-fetch": "^2.3.0",
+		"yargs": "^12.0.2"
+	},
+	"keywords": [ "node" ],
+	"author": "tony",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/footmess/vue-ts-be/issues"
+	},
+	"homepage": "https://github.com/footmess/vue-ts-be#readme"
+}
