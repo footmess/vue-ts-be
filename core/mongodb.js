@@ -20,9 +20,10 @@ mongoose.Promise = global.Promise;
 exports.mongoose = mongoose;
 exports.connect = () => {
 	// 连接数据库
-	mongoose.connect(config.mongodb.url, {
+	mongoose.connect(config.mongodb.uri, {
 		useCreateIndex: true,
 		useNewUrlParser: true,
+		useUnifiedTopology: true,
 		promiseLibrary: global.Promise
 	});
 

@@ -19,7 +19,8 @@ exports.APP = {
 };
 
 exports.mongodb = {
-	uri: `mongodb://${argv.db_username}:${argv.pwd}@127.0.0.1:${argv.dbport}||'27017'`,
+	// uri: `mongodb://${argv.db_username}||messi:${argv.pwd}||666666@127.0.0.1:${argv.dbport}||'27017'`,
+	uri: 'mongodb://127.0.0.1:27017',
 	username: argv.username || 'DB_username',
 	password: argv.pwd || 'DB_password'
 };

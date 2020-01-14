@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
 
+// import 等语法要用到 babel 支持
 require('babel-register');
 
 const app = express();
@@ -38,7 +39,7 @@ app.use(
 const mongodb = require('./core/mongodb');
 // console.log(mongodb);
 //连接数据库
-mongodb.connect();
+// mongodb.connect();
 
 //引入路由文件
 const route = require('./routes/index');
