@@ -1,7 +1,10 @@
 const fetch = require('node-fetch');
 const config = require('../config/index');
 const User = require('../models/user');
-import { MD5_SUFFIX, responseClient, md5 } from '../utils/util.js';
+const { MD5_SUFFIX } = require('../utils/util.js');
+const { responseClient } = require('../utils/util.js');
+const { md5 } = require('../utils/util.js');
+// import { MD5_SUFFIX, responseClient, md5 } from '../utils/util.js';
 
 exports.getUser = (req, res) => {
 	let { code } = req.body;
@@ -237,4 +240,55 @@ exports.delUser = (req, res) => {
 		});
 };
 
-exports.getUserList = (req, res) => {};
+exports.getUserList = (req, res) => {
+	let keyword = req.query.keyword || '';
+	let pageNum = parseInt(req.query.pageNum) || 1;
+	let pageSize = parseInt(req.query.pageSize) || 10;
+	let conditions = {};
+	if (keyword) {
+		const reg = new RegExp(keyword, 'i');
+		conditions = {
+			//mongodb正则
+			$or: [ { name: { $regex: reg } }, { email: { $regex: reg } } ]
+		};
+	}
+	let skip =
+
+			pageNum - 1 < 0 ? 0 :
+			(pageNum - 1) * pageSize;
+	let responseData = {
+		count: 0,
+		list: []
+	};
+	User.countDocuments({}, (err, count) => {
+		if (err) {
+			console.error({ err });
+		} else {
+			responseData.count = count;
+			//待返回的字段
+			let fields = {
+				_id: 1,
+				email: 1,
+				name: 1,
+				avatar: 1,
+				phone: 1,
+				introduce: 1,
+				type: 1,
+				create_time: 1
+			};
+			let options = {
+				skip,
+				limit: pageSize,
+				sort: { create_time: -1 }
+			};
+			User.find(conditions, fields, options, (error, result) => {
+				if (error) {
+					console.error({ error });
+				} else {
+					responseData.list = result;
+					responseClient(res, 200, 0, 'success', responseData);
+				}
+			});
+		}
+	});
+};
