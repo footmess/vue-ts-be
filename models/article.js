@@ -51,11 +51,11 @@ const articleSchema = new mongoose.Schema({
 });
 
 //自增id插件配置
-adminSchema.plugin(autiIncrement.plugin, {
+articleSchema.plugin(autiIncrement.plugin, {
 	model: 'Article',
 	field: 'id',
 	startAt: 1,
 	incrementBy: 1
 });
 
-module.exports = mongoose.model('Article', adminSchema);
+module.exports = mongoose.model('Article', articleSchema);

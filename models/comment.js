@@ -85,6 +85,7 @@ const commentSchema = new mongoose.Schema({
 			create_time: { type: Date, default: Date.now }
 		}
 	],
+	//状态：0 待审核 1 通过 -1已删除 -2 垃圾评论
 	state: { type: Number, default: 1 },
 	//是否已经处理过 1 是 2 否
 	is_handle: { type: Number, default: 2 },
@@ -93,7 +94,7 @@ const commentSchema = new mongoose.Schema({
 });
 
 //自增id插件配置
-adminSchema.plugin(autiIncrement.plugin, {
+commentSchema.plugin(autiIncrement.plugin, {
 	model: 'Comment',
 	field: 'id',
 	startAt: 1,
