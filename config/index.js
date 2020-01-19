@@ -18,9 +18,27 @@ exports.APP = {
 	front_end_path: path.join(__dirname, '..', 'tony')
 };
 
+exports.CROSS_DOMAIN = {
+	allowedOrigins: [],
+	allowedReferer: ''
+};
+
 exports.mongodb = {
 	// uri: `mongodb://${argv.db_username}||messi:${argv.pwd}||666666@127.0.0.1:${argv.dbport}||'27017'`,
 	uri: 'mongodb://127.0.0.1:27017',
 	username: argv.username || 'DB_username',
 	password: argv.pwd || 'DB_password'
+};
+
+exports.AUTH = {
+	data: argv.auth_data || { user: 'root' },
+	jwtTokenSecret: argv.auth_key || 'blog-node',
+	defaultPassword: argv.auth_default_password || 'root'
+};
+
+exports.EMAIL = {
+	account: argv.email_account || 'your email address like : i@biaochenxuying',
+	password: argv.email_password || 'your email password',
+	from: 'https://github.com/biaochenxuying',
+	admin: 'biaochenxuying'
 };

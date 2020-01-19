@@ -1,16 +1,15 @@
-const Tag = require('../models/tag');
+const Category = require('../models/category');
 const { responseClient } = require('../utils/util.js');
 
-exports.getTagList = (req, res) => {
+//获取全部分类
+exports.getCategoryList = (req, res) => {
 	let keyword = req.query.keyword || null;
-	let pageNum = req.query.pageNum || 1;
-	let pageSize = req.query.pageSize || 10;
+	let pageNum = Number.parseInt(req.query.pageNum) || 1;
+	let pageSize = Number.parseInt(req.query.pageSize) || 10;
 	let conditions = {};
 	if (keyword) {
-		let reg = new RegExp(keyword, 'i');
-		conditions = {
-			$or: [ { name: { $regex: reg } }, { desc: { $regex: reg } } ]
-		};
+		const reg = new RegExp(keyword, 'i');
+		conditions = { $or: [ { name: { $regex: reg } }, { desc: { $regex: reg } } ] };
 	}
 	let skip =
 
@@ -20,15 +19,14 @@ exports.getTagList = (req, res) => {
 		count: 0,
 		list: []
 	};
-	Tag.countDocuments({}, (err, count) => {
+	Category.countDocuments({}, (err, count) => {
 		if (err) {
 			console.error({ err });
 		} else {
 			responseData.count = count;
-			//待返回字段
 			let fields = {
-				_id: 1,
 				name: 1,
+				desc: 1,
 				create_time: 1
 			};
 			let options = {
@@ -36,7 +34,7 @@ exports.getTagList = (req, res) => {
 				limit: pageSize,
 				sort: { create_time: -1 }
 			};
-			Tag.find(conditions, fields, options, (error, result) => {
+			Category.find(conditions, fields, options, (error, result) => {
 				if (error) {
 					console.error({ error });
 				} else {
@@ -48,25 +46,26 @@ exports.getTagList = (req, res) => {
 	});
 };
 
-exports.addTag = (req, res) => {
+//添加分类
+exports.addCategory = (req, res) => {
 	let { name, desc } = req.body;
-	Tag.findOne({ name })
+	Category.findOne({ name })
 		.then((result) => {
 			if (!result) {
-				let tag = new Tag({
+				let category = new Category({
 					name,
 					desc
 				});
-				tag
+				category
 					.save()
 					.then((data) => {
 						responseClient(res, 200, 0, '添加成功', data);
 					})
-					.catch((err) => {
-						console.error({ error });
+					.catch((err1) => {
+						console.error({ err1 });
 					});
 			} else {
-				responseClient(res, 200, 1, '该标签已存在');
+				responseClient(res, 200, 1, '该分类已存在');
 			}
 		})
 		.catch((err) => {
@@ -74,14 +73,15 @@ exports.addTag = (req, res) => {
 		});
 };
 
-exports.delTag = (req, res) => {
+//删除分类
+exports.delCategory = (req, res) => {
 	let { id } = req.body;
-	Tag.deleteMany({ _id: id })
+	Category.deleteMany({ _id: id })
 		.then((result) => {
 			if (result.n === 1) {
-				responseClient(res, 200, 0, '删除成功');
+				responseClient(res, 200, 0, '操作成功');
 			} else {
-				responseClient(res, 200, 1, '标签不存在');
+				responseClient(res, 200, 1, '分类不存在');
 			}
 		})
 		.catch((err) => {

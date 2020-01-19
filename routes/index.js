@@ -8,7 +8,7 @@ const comment = require('./comment');
 const message = require('./message');
 const tag = require('./tag');
 const link = require('./link');
-const category = requre('./category');
+const category = require('./category');
 const timeAxis = require('./timeAxis');
 const project = require('./project');
 
@@ -52,7 +52,7 @@ module.exports = (app) => {
 	app.get('/getLinkList', link.getLinkList);
 
 	app.post('/addCategory', category.addCategory);
-	app.post('/delCategory', link.delCategory);
+	app.post('/delCategory', category.delCategory);
 	app.get('/getCategoryList', category.getCategoryList);
 
 	app.post('/addTimeAxis', timeAxis.addTimeAxis);

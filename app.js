@@ -39,7 +39,7 @@ app.use(
 const mongodb = require('./core/mongodb');
 // console.log(mongodb);
 //连接数据库
-// mongodb.connect();
+mongodb.connect();
 
 //引入路由文件
 const route = require('./routes/index');
@@ -63,7 +63,9 @@ app.use(function(err, req, res, next) {
 	res.render('error');
 });
 
-app.get('/', function(req, res) {
-	res.send('link start');
-});
-app.listen(8080);
+// app.get('/', function(req, res) {
+// 	res.send('link start');
+// });
+// app.listen(8080);
+
+module.exports = app;
