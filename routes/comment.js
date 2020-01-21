@@ -4,7 +4,7 @@ const Comment = require('../models/comment');
 const Article = require('../models/article');
 
 exports.getCommentList = (req, res) => {
-	let keyword = rq.query.keyword || null;
+	let keyword = req.query.keyword || null;
 	let is_handle = parseInt(req.query.is_handle) || 0;
 	let pageNum = parseInt(req.query.pageNum) || 1;
 	let pageSize = parseInt(req.query.pageSize) || 10;

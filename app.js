@@ -1,6 +1,7 @@
 //引入模块
 const createError = require('http-errors');
 const express = require('express');
+const ejs = require('ejs');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -11,7 +12,7 @@ require('babel-register');
 
 const app = express();
 //set方法用于指定变量的值。
-app.set('view', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //use是express注册中间件的方法，它返回一个函数
@@ -63,9 +64,6 @@ app.use(function(err, req, res, next) {
 	res.render('error');
 });
 
-// app.get('/', function(req, res) {
-// 	res.send('link start');
-// });
 app.listen(3000);
 
 // module.exports = app;
