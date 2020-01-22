@@ -1,7 +1,7 @@
 //引入模块
 const createError = require('http-errors');
 const express = require('express');
-const ejs = require('ejs');
+// const ejs = require('ejs');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -45,7 +45,14 @@ mongodb.connect();
 //引入路由文件
 const route = require('./routes/index');
 //初始化路由
-route(app);
+// route(app);
+
+app.get('/', function(req, res) {
+	res.render('index');
+});
+app.get('/login', function(req, res) {
+	res.send('index123');
+});
 
 //catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -25,7 +25,7 @@ exports.CROSS_DOMAIN = {
 
 exports.mongodb = {
 	// uri: `mongodb://${argv.db_username}:${argv.pwd}@127.0.0.1:27017`,
-	uri: 'mongodb://127.0.0.1:27017',
+	uri: 'mongodb://127.0.0.1:27017/blog',
 	username: argv.username || 'DB_username',
 	password: argv.pwd || 'DB_password'
 };
