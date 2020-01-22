@@ -49,10 +49,82 @@ app.get('/login123', function(req, res) {
 	res.send('index123');
 });
 
+const { responseClient } = require('./utils/util');
+// const User = require('./models/user');
+const Comment = require('./models/comment');
+
+app.get('/getMessageList', (req, res) => {
+	let keyword = req.query.keyword || null;
+	let is_handle = parseInt(req.query.is_handle) || 0;
+	let pageNum = parseInt(req.query.pageNum) || 1;
+	let pageSize = parseInt(req.query.pageSize) || 10;
+	let conditions = {};
+	if (keyword) {
+		const reg = new RegExp(keyword, 'i');
+		if (is_handle) {
+			conditions = {
+				content: { $regex: reg },
+				is_handle
+			};
+		} else {
+			conditions = { content: { $regex: reg } };
+		}
+	}
+	if (is_handle) {
+		conditions = {
+			is_handle
+		};
+		console.log({ conditions });
+	}
+
+	let skip =
+
+			pageNum - 1 < 0 ? 0 :
+			(pageNum - 1) * pageSize;
+	let responseData = {
+		count: 0,
+		list: []
+	};
+
+	Comment.countDocuments({}, (err, count) => {
+		if (err) {
+			console.error({ err });
+		} else {
+			responseData.count = count;
+			//待返回的字段
+			let fields = {
+				article_id: 1,
+				content: 1,
+				is_top: 1,
+				likes: 1,
+				user_id: 1,
+				user: 1,
+				other_comments: 1,
+				state: 1,
+				is_handle: 1,
+				create_time: 1
+			};
+			let options = {
+				skip,
+				limit: pageSize,
+				sort: { create_time: -1 }
+			};
+			Comment.find(conditions, fields, options, (error, result) => {
+				if (error) {
+					console.error({ error });
+				} else {
+					responseData.list = result;
+					responseClient(res, 200, 0, 'success', responseData);
+				}
+			});
+		}
+	});
+});
+
 //引入路由文件
 const route = require('./routes/index');
 //初始化路由
-route(app);
+// route(app);
 
 //catch 404 and forward to error handler
 app.use(function(req, res, next) {
