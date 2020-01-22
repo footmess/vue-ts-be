@@ -42,17 +42,17 @@ const mongodb = require('./core/mongodb');
 //连接数据库
 mongodb.connect();
 
-//引入路由文件
-const route = require('./routes/index');
-//初始化路由
-route(app);
-
 app.get('/', function(req, res) {
 	res.render('index');
 });
 app.get('/login123', function(req, res) {
 	res.send('index123');
 });
+
+//引入路由文件
+const route = require('./routes/index');
+//初始化路由
+route(app);
 
 //catch 404 and forward to error handler
 app.use(function(req, res, next) {
