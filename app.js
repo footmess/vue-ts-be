@@ -54,6 +54,10 @@ const { responseClient } = require('./utils/util');
 const Comment = require('./models/comment');
 
 app.get('/getMessageList', (req, res) => {
+	if (!req.session.userInfo) {
+		responseClient(res, 200, 1, '您还没登录,或者登录信息已过期，请重新登录！');
+		return;
+	}
 	let keyword = req.query.keyword || null;
 	let is_handle = parseInt(req.query.is_handle) || 0;
 	let pageNum = parseInt(req.query.pageNum) || 1;
