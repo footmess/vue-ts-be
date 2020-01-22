@@ -45,12 +45,12 @@ mongodb.connect();
 //引入路由文件
 const route = require('./routes/index');
 //初始化路由
-// route(app);
+route(app);
 
 app.get('/', function(req, res) {
 	res.render('index');
 });
-app.get('/login', function(req, res) {
+app.get('/login123', function(req, res) {
 	res.send('index123');
 });
 
