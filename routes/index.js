@@ -2,15 +2,15 @@
 路由接口
 */
 
-const user = require('user');
-const article = require('article');
-const comment = require('comment');
-const message = require('message');
-const tag = require('tag');
-const link = require('link');
-const category = require('category');
-const timeAxis = require('timeAxis');
-const project = require('project');
+const user = require('./user');
+const article = require('./article');
+const comment = require('./comment');
+const message = require('./message');
+const tag = require('./tag');
+const link = require('./link');
+const category = require('./category');
+const timeAxis = require('./timeAxis');
+const project = require('./project');
 
 module.exports = (app) => {
 	app.post('/login', user.login);
