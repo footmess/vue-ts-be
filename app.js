@@ -52,7 +52,7 @@ app.get('/login123', function(req, res) {
 //引入路由文件
 const route = require('./routes/index');
 //初始化路由
-// route(app);
+route(app);
 
 //catch 404 and forward to error handler
 app.use(function(req, res, next) {
